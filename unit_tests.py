@@ -11,7 +11,7 @@ import random
 import unittest
 from test import support
 from utilitybelt import base64_chars
-from nginsecretsharing import SecretSharer, PlaintextToHexSecretSharer, \
+from pyseltongue import SecretSharer, PlaintextToHexSecretSharer, \
     BitcoinToB58SecretSharer, BitcoinToB32SecretSharer, \
     BitcoinToZB32SecretSharer
 

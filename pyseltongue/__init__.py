@@ -6,7 +6,7 @@
     :copyright: (c) 2014 by Halfmoon Labs
     :license: MIT, see LICENSE for more details.
 """
-name = "nginsecretsharing"
+name = "pyseltongue"
 
 __version__ = '0.3.0'
 

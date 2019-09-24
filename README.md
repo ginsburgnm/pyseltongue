@@ -1,4 +1,4 @@
-Secret Sharing
+Pyseltongue
 =============
 
 [![PyPI](https://img.shields.io/pypi/v/pyseltongue.svg)](https://pypi.python.org/pypi/pyseltongue/)
@@ -6,6 +6,9 @@ Secret Sharing
 [![PyPI](https://img.shields.io/pypi/l/pyseltongue.svg)](https://github.com/ginsburgnm/pyseltongue/blob/master/LICENSE)
 
 A library for sharding and sharing secrets (like Bitcoin private keys), using shamir's secret sharing scheme.
+
+## Name
+I shamelessly stole this name idea from a coworker
 
 ## Installation
 

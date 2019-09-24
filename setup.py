@@ -7,16 +7,16 @@ Secret Sharing
 from setuptools import setup
 
 setup(
-    name='nginsecretsharing',
+    name='pyseltongue',
     version='0.3.0',
-    url='https://github.com/ginsburgnm/secret-sharing',
+    url='https://github.com/ginsburgnm/pyseltongue',
     license='MIT',
     author='nginsburg',
     author_email='ginsburgnm@gmail.com',
     description=("Tools for sharing secrets (like Bitcoin private keys), "
                  "using shamir's secret sharing scheme."),
     packages=[
-        'nginsecretsharing',
+        'pyseltongue',
     ],
     zip_safe=False,
     install_requires=[
