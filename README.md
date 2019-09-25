@@ -8,7 +8,12 @@ Pyseltongue
 A library for sharding and sharing secrets (like Bitcoin private keys), using shamir's secret sharing scheme.
 
 ## Name
-I shamelessly stole this name idea from a coworker
+I shamelessly stole this name idea from a coworker, shamir-secret-sharing-service ssss -> parseltongue -> we're in python -> pyseltongue (nagini was already taken)
+
+## History Disclaimer
+This was initially forked from [secret-sharing](https://github.com/blockstack/secret-sharing) but they haven't updated the package in 4 years much to many people's dismay. It was getting a little irritating that github kept defaulting to opening merge requests to their repo, even though that will never happen. 
+
+The code has been updated to python3 capatibility and I hope it is useful for others.
 
 ## Installation
 
