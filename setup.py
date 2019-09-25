@@ -8,7 +8,7 @@ from setuptools import setup
 
 setup(
     name='pyseltongue',
-    version='0.3.1',
+    version='0.3.2',
     url='https://github.com/ginsburgnm/pyseltongue',
     license='MIT',
     author='nginsburg',
