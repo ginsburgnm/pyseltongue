@@ -108,6 +108,7 @@ class SecretSharer():
 
     @classmethod
     def split_secret(cls, secret_string, share_threshold, num_shares):
+        """Shard a secret into multiple shares"""
         secret_int = charset_to_int(secret_string, cls.secret_charset)
         points = secret_int_to_points(secret_int, share_threshold, num_shares)
         shares = []
@@ -117,6 +118,7 @@ class SecretSharer():
 
     @classmethod
     def recover_secret(cls, shares):
+        """Use provided shares to recover a secret"""
         points = []
         for share in shares:
             points.append(share_string_to_point(share, cls.share_charset))

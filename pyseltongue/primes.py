@@ -24,7 +24,7 @@ def calculate_mersenne_primes():
     primes = []
     for exp in mersenne_prime_exponents:
         prime = 1
-        for i in range(exp):
+        for _ in range(exp):
             prime *= 2
         prime -= 1
         primes.append(prime)
