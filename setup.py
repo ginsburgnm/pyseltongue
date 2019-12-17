@@ -5,10 +5,11 @@ Secret Sharing
 """
 
 from setuptools import setup
+import pyseltongue
 
 setup(
     name='pyseltongue',
-    version='0.3.2',
+    version=pyseltongue.__version__,
     url='https://github.com/ginsburgnm/pyseltongue',
     license='MIT',
     author='nginsburg',

@@ -14,4 +14,4 @@ from .sharing import secret_int_to_points, points_to_secret_int, \
 
 # name = "pyseltongue"
 
-__version__ = '0.3.0'
+__version__ = '0.3.3'
