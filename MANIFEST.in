@@ -1,0 +1,2 @@
+include versioneer.py
+include pyseltongue/_version.py

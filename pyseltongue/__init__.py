@@ -13,5 +13,6 @@ from .sharing import secret_int_to_points, points_to_secret_int, \
     BitcoinToZB32SecretSharer
 
 # name = "pyseltongue"
-
-__version__ = '0.3.3'
+from ._version import get_versions
+__version__ = get_versions()['version']
+del get_versions
