@@ -7,7 +7,6 @@
     :license: MIT, see LICENSE for more details.
 """
 
-
 def calculate_mersenne_primes():
     """ Returns all the mersenne primes with less than 500 digits.
         All primes:
@@ -21,14 +20,7 @@ def calculate_mersenne_primes():
     mersenne_prime_exponents = [
         2, 3, 5, 7, 13, 17, 19, 31, 61, 89, 107, 127, 521, 607, 1279
     ]
-    primes = []
-    for exp in mersenne_prime_exponents:
-        prime = 1
-        for _ in range(exp):
-            prime *= 2
-        prime -= 1
-        primes.append(prime)
-    return primes
+    return [pow(2, exp) - 1 for exp in mersenne_prime_exponents]
 
 SMALLEST_257BIT_PRIME = (2**256 + 297)
 SMALLEST_321BIT_PRIME = (2**320 + 27)
@@ -38,16 +30,12 @@ STANDARD_PRIMES = calculate_mersenne_primes() + [
 ]
 STANDARD_PRIMES.sort()
 
-
 def get_large_enough_prime(batch):
-    """ Returns a prime number that is greater all the numbers in the batch.
+    """ Returns a prime number that is greater than all the numbers in the batch.
     """
     # build a list of primes
-    primes = STANDARD_PRIMES
     # find a prime that is greater than all the numbers in the batch
-    for prime in primes:
-        numbers_greater_than_prime = [i for i in batch if i > prime]
-#        if len(numbers_greater_than_prime) == 0:
-        if not numbers_greater_than_prime:
+    for prime in STANDARD_PRIMES:
+        if not [i for i in batch if i > prime]:
             return prime
     return None
