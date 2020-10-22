@@ -6,9 +6,7 @@
     :copyright: (c) 2014 by Halfmoon Labs
     :license: MIT, see LICENSE for more details.
 """
-
 from utilitybelt import secure_randint as randint
-
 
 def extended_gcd(int_a, int_b):
     """Find the gcd as a linear combination of 2 numbers"""
@@ -17,28 +15,20 @@ def extended_gcd(int_a, int_b):
     int_g, int_y, int_x = extended_gcd(int_b % int_a, int_a)
     return (int_g, int_x - (int_b // int_a) * int_y, int_y)
 
-
 def mod_inverse(int_a, modular):
     """Find inverse of int with a given mod"""
     int_a = int_a % modular
-    if int_a < 0:
-        ret = extended_gcd(modular, -int_a)[2]
-    else:
-        ret = extended_gcd(modular, int_a)[2]
+    ret = extended_gcd(modular, abs(int_a))[2]
     return (modular + ret) % modular
-
 
 def random_polynomial(degree, intercept, upper_bound):
     """ Generates a random polynomial with positive coefficients.
     """
     if degree < 0:
         raise ValueError('Degree must be a non-negative number.')
-    coefficients = [intercept]
-    for _ in range(degree):
-        random_coeff = randint(0, upper_bound-1)
-        coefficients.append(random_coeff)
+    coefficients = [randint(0, upper_bound-1) for x in range(degree)]
+    coefficients.insert(0, intercept)
     return coefficients
-
 
 def get_polynomial_points(coefficients, num_points, prime):
     """ Calculates the first n polynomial points.
@@ -56,7 +46,6 @@ def get_polynomial_points(coefficients, num_points, prime):
         # add the point to the list of points
         points.append((x_coeff, y_coeff))
     return points
-
 
 def modular_lagrange_interpolation(x_coor, points, prime):
     """Calculate lowest degree of polynomials"""

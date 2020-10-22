@@ -8,18 +8,13 @@
 """
 
 import string
-
 from six import integer_types
-from utilitybelt import int_to_charset, charset_to_int, base58_chars, \
-    base32_chars, zbase32_chars
+from utilitybelt import int_to_charset, charset_to_int, base58_chars, base32_chars, zbase32_chars
 from .primes import get_large_enough_prime
-from .polynomials import random_polynomial, \
-    get_polynomial_points, modular_lagrange_interpolation
-
+from .polynomials import random_polynomial, get_polynomial_points, modular_lagrange_interpolation
 
 def secret_int_to_points(secret_int, point_threshold, num_points, prime=None):
     """ Split a secret (integer) into shares (pair of integers / x,y coords).
-
         Sample the points of a random polynomial with the y intercept equal to
         the secret int.
     """
@@ -29,16 +24,14 @@ def secret_int_to_points(secret_int, point_threshold, num_points, prime=None):
         raise ValueError("Threshold must be < the total number of points.")
     if not prime:
         prime = get_large_enough_prime([secret_int, num_points])
-    if not prime:
-        raise ValueError("Error! Secret is too long for share calculation!")
+        if not prime:
+            raise ValueError("Error! Secret is too long for share calculation!")
     coefficients = random_polynomial(point_threshold-1, secret_int, prime)
     points = get_polynomial_points(coefficients, num_points, prime)
     return points
 
-
 def points_to_secret_int(points, prime=None):
     """ Join int points into a secret int.
-
         Get the intercept of a random polynomial defined by the given points.
     """
     if not isinstance(points, list):
@@ -55,7 +48,6 @@ def points_to_secret_int(points, prime=None):
     free_coefficient = modular_lagrange_interpolation(0, points, prime)
     secret_int = free_coefficient  # the secret int is the free coefficient
     return secret_int
-
 
 def point_to_share_string(point, charset):
     """ Convert a point (a tuple of two integers) into a share string - that is,
@@ -76,7 +68,6 @@ def point_to_share_string(point, charset):
     share_string = x_string + '-' + y_string
     return share_string
 
-
 def share_string_to_point(share_string, charset):
     """ Convert a share string to a point (a tuple of integers).
     """
@@ -92,7 +83,6 @@ def share_string_to_point(share_string, charset):
     x_val = charset_to_int(x_string, charset)
     y_val = charset_to_int(y_string, charset)
     return (x_val, y_val)
-
 
 class SecretSharer():
     """ Creates a secret sharer, which can convert from a secret string to a
@@ -126,20 +116,17 @@ class SecretSharer():
         secret_string = int_to_charset(secret_int, cls.secret_charset)
         return secret_string
 
-
 class HexToHexSecretSharer(SecretSharer):
     """ Standard sharer for converting hex secrets to hex shares.
     """
     secret_charset = string.hexdigits[0:16]
     share_charset = string.hexdigits[0:16]
 
-
 class PlaintextToHexSecretSharer(SecretSharer):
     """ Good for converting secret messages into standard hex shares.
     """
     secret_charset = string.printable
     share_charset = string.hexdigits[0:16]
-
 
 class BitcoinToB58SecretSharer(SecretSharer):
     """ Good for converting Bitcoin secret keys into shares that can be
@@ -148,14 +135,12 @@ class BitcoinToB58SecretSharer(SecretSharer):
     secret_charset = base58_chars
     share_charset = base58_chars
 
-
 class BitcoinToB32SecretSharer(SecretSharer):
     """ Good for converting Bitcoin secret keys into shares that can be
         reliably and conveniently transcribed.
     """
     secret_charset = base58_chars
     share_charset = base32_chars
-
 
 class BitcoinToZB32SecretSharer(SecretSharer):
     """ Good for converting Bitcoin secret keys into shares that can be
