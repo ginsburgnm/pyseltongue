@@ -3,7 +3,6 @@ Secret Sharing
 ==============
 
 """
-
 from setuptools import setup
 import versioneer
 
