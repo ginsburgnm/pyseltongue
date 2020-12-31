@@ -9,7 +9,7 @@
 
 import string
 from six import integer_types
-from utilitybelt import int_to_charset, charset_to_int, base58_chars, base32_chars, zbase32_chars
+from utilitybelt import charset_to_int, int_to_charset, base58_chars, base32_chars, zbase32_chars
 from .primes import get_large_enough_prime
 from .polynomials import random_polynomial, get_polynomial_points, modular_lagrange_interpolation
 
@@ -27,8 +27,7 @@ def secret_int_to_points(secret_int, point_threshold, num_points, prime=None):
         if not prime:
             raise ValueError("Error! Secret is too long for share calculation!")
     coefficients = random_polynomial(point_threshold-1, secret_int, prime)
-    points = get_polynomial_points(coefficients, num_points, prime)
-    return points
+    return get_polynomial_points(coefficients, num_points, prime)
 
 def points_to_secret_int(points, prime=None):
     """ Join int points into a secret int.
@@ -45,9 +44,7 @@ def points_to_secret_int(points, prime=None):
     _, y_values = zip(*points)
     if not prime:
         prime = get_large_enough_prime(y_values)
-    free_coefficient = modular_lagrange_interpolation(0, points, prime)
-    secret_int = free_coefficient  # the secret int is the free coefficient
-    return secret_int
+    return modular_lagrange_interpolation(0, points, prime)
 
 def point_to_share_string(point, charset):
     """ Convert a point (a tuple of two integers) into a share string - that is,
@@ -65,8 +62,7 @@ def point_to_share_string(point, charset):
     x_val, y_val = point
     x_string = int_to_charset(x_val, charset)
     y_string = int_to_charset(y_val, charset)
-    share_string = x_string + '-' + y_string
-    return share_string
+    return "%s-%s" % (x_string, y_string)
 
 def share_string_to_point(share_string, charset):
     """ Convert a share string to a point (a tuple of integers).
@@ -90,8 +86,8 @@ class SecretSharer():
         character set of the secrets and the character set of the shares that
         it expects to be dealing with.
     """
-    secret_charset = string.hexdigits[0:16]
-    share_charset = string.hexdigits[0:16]
+    secret_charset = string.hexdigits[0:16][::-1]
+    share_charset = string.hexdigits[0:16][::-1]
 
     def __init__(self):
         pass
@@ -113,38 +109,37 @@ class SecretSharer():
         for share in shares:
             points.append(share_string_to_point(share, cls.share_charset))
         secret_int = points_to_secret_int(points)
-        secret_string = int_to_charset(secret_int, cls.secret_charset)
-        return secret_string
+        return int_to_charset(secret_int, cls.secret_charset)
 
 class HexToHexSecretSharer(SecretSharer):
     """ Standard sharer for converting hex secrets to hex shares.
     """
-    secret_charset = string.hexdigits[0:16]
-    share_charset = string.hexdigits[0:16]
+    secret_charset = string.hexdigits[0:16][::-1]
+    share_charset = string.hexdigits[0:16][::-1]
 
 class PlaintextToHexSecretSharer(SecretSharer):
     """ Good for converting secret messages into standard hex shares.
     """
-    secret_charset = string.printable
-    share_charset = string.hexdigits[0:16]
+    secret_charset = string.printable[::-1]
+    share_charset = string.hexdigits[0:16][::-1]
 
 class BitcoinToB58SecretSharer(SecretSharer):
     """ Good for converting Bitcoin secret keys into shares that can be
         reliably printed out in any font.
     """
-    secret_charset = base58_chars
-    share_charset = base58_chars
+    secret_charset = base58_chars[::-1]
+    share_charset = base58_chars[::-1]
 
 class BitcoinToB32SecretSharer(SecretSharer):
     """ Good for converting Bitcoin secret keys into shares that can be
         reliably and conveniently transcribed.
     """
-    secret_charset = base58_chars
-    share_charset = base32_chars
+    secret_charset = base58_chars[::-1]
+    share_charset = base32_chars[::-1]
 
 class BitcoinToZB32SecretSharer(SecretSharer):
     """ Good for converting Bitcoin secret keys into shares that can be
         reliably and conveniently transcribed.
     """
-    secret_charset = base58_chars
-    share_charset = zbase32_chars
+    secret_charset = base58_chars[::-1]
+    share_charset = zbase32_chars[::-1]

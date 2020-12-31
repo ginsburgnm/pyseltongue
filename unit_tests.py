@@ -60,6 +60,16 @@ class ShamirSharingTest(unittest.TestCase):
             "correct horse battery staple"
         )
 
+    def test_zero_leading_ascii_to_hex_sharing(self):
+        self.split_and_recover_secret(
+            PlaintextToHexSecretSharer, 3, 5,
+            '0B4A30EEFEBA6783EA68F79AD5DC85E4DDCD83D4'
+        )
+        self.split_and_recover_secret_alt_parts(
+            PlaintextToHexSecretSharer, 3, 5,
+            '0B4A30EEFEBA6783EA68F79AD5DC85E4DDCD83D4'
+        )
+
     def test_b58_to_b32_sharing(self):
         self.split_and_recover_secret(
             BitcoinToB32SecretSharer, 3, 5,
