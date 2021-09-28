@@ -86,8 +86,8 @@ class SecretSharer():
         character set of the secrets and the character set of the shares that
         it expects to be dealing with.
     """
-    secret_charset = string.hexdigits[0:16][::-1]
-    share_charset = string.hexdigits[0:16][::-1]
+    secret_charset = string.hexdigits[0:17][::-1]
+    share_charset = string.hexdigits[0:17][::-1]
 
     def __init__(self):
         pass
@@ -114,14 +114,14 @@ class SecretSharer():
 class HexToHexSecretSharer(SecretSharer):
     """ Standard sharer for converting hex secrets to hex shares.
     """
-    secret_charset = string.hexdigits[0:16][::-1]
-    share_charset = string.hexdigits[0:16][::-1]
+    secret_charset = string.hexdigits[0:17][::-1]
+    share_charset = string.hexdigits[0:17][::-1]
 
 class PlaintextToHexSecretSharer(SecretSharer):
     """ Good for converting secret messages into standard hex shares.
     """
     secret_charset = string.printable[::-1]
-    share_charset = string.hexdigits[0:16][::-1]
+    share_charset = string.hexdigits[0:17][::-1]
 
 class BitcoinToB58SecretSharer(SecretSharer):
     """ Good for converting Bitcoin secret keys into shares that can be

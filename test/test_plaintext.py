@@ -33,3 +33,12 @@ class PlaintextToHexSecretSharerTest(ShamirSharingTest):
         self.split_and_recover_secret_alt_parts(
             3, 5, '0B4A30EEFEBA6783EA68F79AD5DC85E4DDCD83D4'
         )
+
+    def test_f_leading_ascii_to_hex_sharing(self):
+        """Test leading 0 issue"""
+        self.split_and_recover_secret(
+            3, 5, 'f6b00c143f637e83f0eb2366888d1c02878dc32366148648f08fea67c8704cdd'
+        )
+        self.split_and_recover_secret_alt_parts(
+            3, 5, 'f6b00c143f637e83f0eb2366888d1c02878dc32366148648f08fea67c8704cdd'
+        )
